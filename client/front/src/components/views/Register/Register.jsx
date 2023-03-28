@@ -58,7 +58,7 @@ const useStyles = makeStyles(theme => ({
           backgroundColor: '#089B90',
         },
         marginTop : theme.spacing(1),
-        margin:theme.spacing(6) ,
+        margin:theme.spacing(5) ,
         left : 40
       },
       
@@ -66,19 +66,19 @@ const useStyles = makeStyles(theme => ({
       
 }))
 
-const Login = () => {
-    const [body, setBody] = useState({  email: '',password: '' })
+const Register = () => {
+    const [body, setBody] = useState({ email: '', username: '',password: '', favsport: '' })
     const [error, setError] = useState('')  
     const { push } = useHistory()
     const classes = useStyles()
-
-    // Email validation function
-    const validateEmail = email => {
-      // eslint-disable-next-line no-useless-escape
-      const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-      return re.test(String(email).toLowerCase());
-      };
   
+// Email validation function
+    const validateEmail = email => {
+    // eslint-disable-next-line no-useless-escape
+    const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return re.test(String(email).toLowerCase());
+    };
+
     const inputChange = ({ target }) => {
       const { name, value } = target
       setBody({
@@ -91,9 +91,9 @@ const Login = () => {
       if (!validateEmail(body.email)) {
         setError('Invalid email address');
         return; }
-      axios.post('http://localhost:4000/api/login', body)
+      axios.post('http://localhost:4000/api/register', body)
         .then(({ data }) => {
-          localStorage.setItem('auth', '"yes"')
+          localStorage.setItem('auth', '"no"')
           push('/app')
         })
         .catch(({ response }) => {
@@ -123,18 +123,32 @@ const Login = () => {
 </Grid>
           <Grid item xs={10} sm={6} component={Paper} elevation={5} square style={{  backgroundColor: '#171717', }}>
             <div className={classes.div} >
-            <a style={{ display: 'block', textAlign: 'right', fontSize: '20px', marginTop: '20px', position: 'absolute' , color : 'grey', top: 0, right: 0 }} href="/register">Sign Up</a>
-              <br></br>
+            <a style={{ display: 'block', textAlign: 'right', fontSize: '20px', marginTop: '20px', position: 'absolute' , color : 'grey', top: 0, right: 0 }} href="/login">Sign In</a>
+            <br></br>
               <br></br>
               <br></br>
               <br></br>
               <br></br><br></br>
               <br></br>
-              <Typography component="h1" variant="h5"style={{ marginLeft: '45px' }} >
+              
+            <Typography component="h1" variant="h5"style={{ marginLeft: '45px' }} >
             <img src={brandname} alt="my" />
               </Typography>
               <form className={classes.form}>
-               
+                <TextField
+                 InputProps={{
+                    style: { backgroundColor: 'black', color: '#666666' , width: '300px' }
+                  }}
+                  autoFocus
+                  color="primary"
+                  margin="right"
+                  variant="outlined"
+                  label="Email"
+                  value={body.email}
+                  onChange={inputChange}
+                  name="email"
+                />
+                <br></br>
                 <TextField
                   InputProps={{
                     style: { backgroundColor: 'black', color: '#666666' , width: '300px' }
@@ -143,16 +157,29 @@ const Login = () => {
                   color="primary"
                   margin="normal"
                   variant="outlined"
-                  label="Adresse Email"
-                  value={body.email}
+                  label="Username"
+                  value={body.username}
                   onChange={inputChange}
-                  name="email"
+                  name="username"
                 />
                 <br></br>
-                
                 <TextField
                   InputProps={{
-                    style: { backgroundColor: 'black', color: '#666666' , width: '300px'  }
+                    style: { backgroundColor: 'black', color: '#666666' , width: '300px' }
+                  }}
+                  autoFocus
+                  color="primary"
+                  margin="normal"
+                  variant="outlined"
+                  label="Favorite sport"
+                  value={body.favsport}
+                  onChange={inputChange}
+                  name="favsport"
+                />
+                <br></br>
+                <TextField
+                  InputProps={{
+                    style: { backgroundColor: 'black', color: '#666666' , width: '300px' }
                   }}
                   type="password"
                   color="primary"
@@ -163,15 +190,17 @@ const Login = () => {
                   onChange={inputChange}
                   name="password"
                 />
-                <a  style={{display: 'block' , fontSize: '10px',marginTop: '20px' , color : 'grey',  textDecoration: 'none' }} href="/forget" > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mot de pass oublié</a>
+                <a  style={{display: 'block',textAlign: 'right',fontSize: '10px',marginTop: '20px' , color : 'grey' , textDecoration: 'none'}} href="/forget" > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mot de pass oublié</a>
+                
                 <br></br>
                 <Button
+                  
                   variant="contained"
                   color="secondary"
                   className={classes.button}
                   onClick={onSubmit}
                 >
-                  Se Connecter
+                  Se Enregistrer
                 </Button>
                 
                 {error && (
@@ -185,7 +214,6 @@ const Login = () => {
                   </Typography>
                 )}
               </form>
-              
             </div>
           </Grid>
         </Grid>
@@ -193,4 +221,5 @@ const Login = () => {
     }
     
   
-  export default Login
+  export default Register
+  
