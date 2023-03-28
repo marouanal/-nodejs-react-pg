@@ -3,6 +3,9 @@ import { Grid,  Paper, Typography, TextField, Button, CssBaseline } from '@mater
 import { makeStyles } from '@material-ui/core/styles'
 import background from './background.jpg'
 import brandname from './brandname.jpg'
+import facebook from './facebook.jpeg'
+import twitter from './twitter.jpeg'
+import instagram from './instagram.jpeg'
 //import { LockOutlined as LockOutlinedIcon } from '@material-ui/icons'
 import axios from 'axios'
 import { useHistory } from 'react-router'
@@ -110,6 +113,12 @@ const Login = () => {
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed malesuada
       tincidunt mauris, in vestibulum odio viverra in.
     </Typography>
+    <Typography component="h1" variant="h5" style={{ position: 'absolute', bottom: '0', left: '0', display: 'flex', alignItems: 'flex-end', marginLeft: '450px' , marginBottom: '100px' }} >
+            <img src={facebook} alt="my" style={{ width: '20px', marginRight: '5px' }} />
+            
+            <img src={instagram} alt="my" style={{ width: '20px', marginRight: '5px' }} />
+            <img src={twitter} alt="my" style={{ width: '20px' }}/>
+              </Typography>
   </div>
 </Grid>
           <Grid item xs={10} sm={6} component={Paper} elevation={5} square style={{  backgroundColor: '#171717', }}>
@@ -176,6 +185,7 @@ const Login = () => {
                   </Typography>
                 )}
               </form>
+              
             </div>
           </Grid>
         </Grid>
